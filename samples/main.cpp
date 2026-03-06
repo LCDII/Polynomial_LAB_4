@@ -3,7 +3,7 @@
 
 int main()
 {
-	Monom m(-8, 2, 4, 3);
+	/*Monom m(-8, 2, 4, 3);
 	Monom m1(2, 2, 7, 3);
 	Monom m2(3, 2, 4, 3);
 	Monom k(45, 0, 0, 0);
@@ -30,5 +30,8 @@ int main()
 	cout << endl;
 	cout << p5 << endl;
 	cout << p4 * p5<<endl;
-	cout << p5.solve(3, 4, 5);
+	cout << p5.solve(3, 4, 5);*/
+
+	Polynomial p = Polynomial("3x^2y - 4.5yz + 7");
+	cout << p;
 }

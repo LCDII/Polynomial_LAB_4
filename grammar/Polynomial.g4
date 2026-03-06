@@ -1,19 +1,27 @@
 grammar Polynomial;
 
-poly : signedTerm ((PLUS | MINUS) term)* EOF ;
-
-signedTerm : MINUS? term ;
+poly
+    : term ((PLUS | MINUS) term)* EOF
+    ;
 
 term
     : coefficient? monomial
     | coefficient
     ;
 
-coefficient : NUMBER ;
+coefficient
+    : SIGN? NUMBER
+    ;
 
-monomial : factor+ ;
+monomial
+    : factor+
+    ;
 
-factor : VARIABLE (POW INTEGER)? ;
+factor
+    : VARIABLE (POW SIGN? INTEGER)?
+    ;
+
+SIGN : '+' | '-';
 
 PLUS  : '+';
 MINUS : '-';

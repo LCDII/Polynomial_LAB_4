@@ -78,8 +78,9 @@ FetchContent_MakeAvailable(googletest)
 
 # ---------------- Библиотека Polynomial ----------------
 file(GLOB LIB_SRCS "${SOURCE}/*.cpp")
+file(GLOB LIB_H "${INCLUDE}/*.h")
 
-add_library(${LIBRARY} STATIC ${LIB_SRCS} ${ANTLR_SRCS})
+add_library(${LIBRARY} STATIC ${LIB_SRCS} ${LIB_H} ${ANTLR_SRCS})
 
 # Include paths
 target_include_directories(${LIBRARY} PUBLIC
@@ -89,7 +90,7 @@ target_include_directories(${LIBRARY} PUBLIC
 )
 
 # Линковка с ANTLR runtime
-target_link_libraries(${LIBRARY} PUBLIC antlr4_shared)
+target_link_libraries(${LIBRARY} PUBLIC antlr4_static)
 
 
 # ---------------- Install ----------------

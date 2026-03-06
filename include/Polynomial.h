@@ -11,11 +11,12 @@ class Polynomial
 {	
 	SkipList<Monom, powerCompare> monoms;
 	void deleteZeroMonoms();
+	void parseFromString(const string& str);
 public:
 	Polynomial();
 	Polynomial(const Polynomial& other);
 	Polynomial& operator=(const Polynomial& other);
-	Polynomial(string expression);
+	Polynomial(const string& expression);
 
 
 	Polynomial operator+(Monom other);
