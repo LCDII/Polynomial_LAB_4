@@ -48,6 +48,7 @@ public:
 	friend ostream& operator<<(ostream& ostr, Monom m);
 	friend Monom operator-(Monom other);
 	bool isNull() const noexcept;
+	bool isNegative()const noexcept;
 };
 
 struct powerCompare

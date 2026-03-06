@@ -187,12 +187,17 @@ bool Monom::isNull() const noexcept
 	return abs(coefficient) < E;
 }
 
+bool Monom::isNegative() const noexcept
+{
+	return coefficient < 0;
+}
+
 
 //#####################################################################################################
 
 ostream& operator<<(ostream& ostr, Monom m)
 {
-	ostr << m.coefficient << " ";
+	ostr << m.coefficient;
 	if(m.data.hashed != ALL_POWERS_ZERO_HASHED)
 		for (int i = 0; i < 3; i++)
 		{

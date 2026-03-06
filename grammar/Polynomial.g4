@@ -1,40 +1,39 @@
 grammar Polynomial;
 
+// Полином
 poly
-    : term ((PLUS | MINUS) term)* EOF
+    : term (('+'|'-') term)* EOF
     ;
 
+// Термы
 term
-    : coefficient? monomial
-    | coefficient
+    : coefficient? monomial?
     ;
 
+// Коэффициент: число с optional знаком
 coefficient
-    : SIGN? NUMBER
+    : NUMBER
+    | INTEGER
     ;
 
+// Моном: набор переменных с optional степенью
 monomial
     : factor+
     ;
 
+// Фактор: переменная с optional степенью
 factor
-    : VARIABLE (POW SIGN? INTEGER)?
+    : VARIABLE (POW exponent)?
     ;
 
-SIGN : '+' | '-';
-
-PLUS  : '+';
-MINUS : '-';
-POW   : '^';
-
-VARIABLE : [xyz];
-
-INTEGER : [0-9]+;
-
-NUMBER
-    : [0-9]+ '.' [0-9]*
-    | '.' [0-9]+
-    | [0-9]+
+// Степень: целое число, может быть отрицательным
+exponent
+    : INTEGER
     ;
 
-WS : [ \t\r\n]+ -> skip;
+// Лексемы
+INTEGER  : [+-]? [0-9]+ ;
+NUMBER   : [+-]? [0-9]+ ('.' [0-9]+)? ;
+VARIABLE : [xyz] ;
+POW      : '^' ;
+WS       : [ \t\r\n]+ -> skip ;

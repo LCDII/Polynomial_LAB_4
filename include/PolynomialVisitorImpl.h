@@ -8,8 +8,6 @@ class PolynomialVisitorImpl : public PolynomialBaseVisitor
 {
 public:
 
-    Polynomial result;
-
     // visitTerm создаёт Monom и возвращает его через std::any
     std::any visitTerm(PolynomialParser::TermContext* ctx) override;
 
