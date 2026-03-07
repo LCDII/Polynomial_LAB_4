@@ -34,5 +34,6 @@ int main()
 
 	Polynomial p = Polynomial("2.2x^2y^3 + x^-2y^3 - 4z^5 + 5");
 	
-	cout << p;
+	cout << p<<endl;
+	cout << p.solve(1, 2, 3);
 }
