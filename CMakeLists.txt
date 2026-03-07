@@ -7,28 +7,21 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-if (MSVC)
-    set(CMAKE_MSVC_RUNTIME_LIBRARY
-        "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
-        CACHE STRING "" FORCE)
-endif()
-
 # ---------------- Пути проекта ----------------
 set(LIBRARY "${PROJECT_NAME}")
 set(INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 set(SOURCE  "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(TESTS   "test_${PROJECT_NAME}")
 
-# ---------------- CMAKE_INSTALL_PREFIX ----------------
 # Удобный локальный путь для INSTALL
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory")
 
 # =========================================================
-# 🔵 ANTLR SECTION
-# =========================================================
+# ANTLR SECTION
+
 include(FetchContent)
 
-# 1️⃣ Скачать runtime автоматически
+# Скачать runtime автоматически
 FetchContent_Declare(
     antlr4_runtime
     GIT_REPOSITORY https://github.com/antlr/antlr4.git
@@ -37,16 +30,15 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(antlr4_runtime)
 
-# Include для runtime
+# Include для runtime.h
 set(ANTLR4_RUNTIME_INCLUDE_DIR ${antlr4_runtime_SOURCE_DIR}/runtime/src)
 
-# 2️⃣ Пути к ANTLR tool и грамматике
-set(ANTLR_JAR ${CMAKE_SOURCE_DIR}/antlr/antlr-4.13.2-complete.jar)
-set(GRAMMAR ${CMAKE_SOURCE_DIR}/grammar/Polynomial.g4)
-set(GENERATED_DIR ${CMAKE_BINARY_DIR}/generated)
+set(ANTLR_JAR ${CMAKE_SOURCE_DIR}/antlr/antlr-4.13.2-complete.jar)#Tools
+set(GRAMMAR ${CMAKE_SOURCE_DIR}/grammar/Polynomial.g4)#грамматика
+set(GENERATED_DIR ${CMAKE_BINARY_DIR}/generated)#парсер 
 file(MAKE_DIRECTORY ${GENERATED_DIR})
 
-# 3️⃣ Генерация parser автоматически
+#Генерация parser автоматически
 add_custom_command(
     OUTPUT
         ${GENERATED_DIR}/PolynomialLexer.cpp
@@ -60,7 +52,7 @@ add_custom_command(
             ${GRAMMAR}
     DEPENDS ${GRAMMAR}
     COMMENT "Generating ANTLR parser..."
-)
+)#создание парсера очень удобно всек сам распокует и засунет
 
 set(ANTLR_SRCS
     ${GENERATED_DIR}/PolynomialLexer.cpp
@@ -69,14 +61,14 @@ set(ANTLR_SRCS
     ${GENERATED_DIR}/PolynomialVisitor.cpp
 )
 
-# ---------------- GoogleTest ----------------
+#GoogleTest 
 FetchContent_Declare(
     googletest
     URL https://github.com/google/googletest/archive/refs/heads/main.zip
 )
-FetchContent_MakeAvailable(googletest)
+FetchContent_MakeAvailable(googletest)#таскать папку везде не очень хорошее решение
 
-# ---------------- Библиотека Polynomial ----------------
+# Библиотека Polynomial 
 file(GLOB LIB_SRCS "${SOURCE}/*.cpp")
 file(GLOB LIB_H "${INCLUDE}/*.h")
 
@@ -93,7 +85,7 @@ target_include_directories(${LIBRARY} PUBLIC
 target_link_libraries(${LIBRARY} PUBLIC antlr4_static)
 
 
-# ---------------- Install ----------------
+#Install 
 install(TARGETS ${LIBRARY}
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
@@ -103,6 +95,6 @@ install(TARGETS ${LIBRARY}
 install(DIRECTORY ${INCLUDE}/ DESTINATION include)
 install(DIRECTORY ${GENERATED_DIR}/ DESTINATION include)
 
-# ---------------- Subdirectories ----------------
+
 add_subdirectory(samples)
 add_subdirectory(test)

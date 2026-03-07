@@ -32,7 +32,7 @@ int main()
 	cout << p4 * p5<<endl;
 	cout << p5.solve(3, 4, 5);*/
 
-	Polynomial p = Polynomial("2.2x^2y^3 + x^-2y^3 - z^5 + 5");
+	Polynomial p = Polynomial("2.2x^2y^3 + x^-2y^3 - 4z^5 + 5");
 	
 	cout << p;
 }

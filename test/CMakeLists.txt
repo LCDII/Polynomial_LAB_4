@@ -1,6 +1,4 @@
-# test/CMakeLists.txt
 
-# имя тестового exe
 set(target test_Polynomial)
 
 file(GLOB TEST_SRCS "*.cpp")
@@ -14,7 +12,7 @@ target_include_directories(${target}
 
 target_link_libraries(${target}
     PRIVATE
-        GTest::gtest
+        GTest::gtest#теперь вот так подключаем в инклюдах придется писать #include gtest/..
         ${LIBRARY}
 )
 
